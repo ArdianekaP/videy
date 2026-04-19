@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer">
     <title>Video Player</title>
-    
     <script src="https://pl29180025.profitablecpmratenetwork.com/eb/39/25/eb39256009464b36f9b3fb16873b622c.js"></script>
-
     <style>
-        body { background-color: #121212; color: white; font-family: sans-serif; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; text-align: center; overflow: hidden; }
-        .preview-box { position: relative; width: 95%; max-width: 640px; border-radius: 15px; overflow: hidden; cursor: pointer; border: 2px solid #333; background: #000; }
-        .thumbnail { width: 100%; height: auto; min-height: 250px; display: block; object-fit: cover; opacity: 0.6; }
-        .play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #e50914; color: white; padding: 12px 25px; border-radius: 50px; font-weight: bold; font-size: 16px; border: none; }
+        body { background-color: #121212; color: white; font-family: sans-serif; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
+        .preview-box { position: relative; width: 95%; max-width: 640px; border-radius: 15px; overflow: hidden; cursor: pointer; border: 2px solid #333; background: #222; min-height: 250px; }
+        .thumbnail { width: 100%; height: auto; display: block; object-fit: cover; opacity: 0.7; }
+        .play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #e50914; color: white; padding: 15px 30px; border-radius: 50px; font-weight: bold; font-size: 18px; border: none; z-index: 10; }
         #video-wrapper { display: none; width: 100%; height: 100vh; }
         iframe { width: 100%; height: 100%; border: none; }
     </style>
@@ -20,7 +18,7 @@
 <body>
 
     <div id="landing-page" class="preview-box" onclick="startVideo()">
-        <img id="thumb-img" src="" class="thumbnail">
+        <img id="thumb-img" src="" class="thumbnail" onerror="this.src='https://via.placeholder.com/640x360/b20914/ffffff?text=KLIK+UNTUK+NONTON'">
         <div class="play-btn">▶ PLAY VIDEO</div>
     </div>
 
@@ -33,9 +31,9 @@
         const videoId = urlParams.get('id');
 
         if(videoId) {
-            // Menggunakan WSrv.nl sebagai proxy agar gambar tidak diblokir Videy
-            const rawThumb = "https://cdn.videy.co/" + videoId + ".jpg";
-            document.getElementById('thumb-img').src = "https://images.weserv.nl/?url=" + rawThumb;
+            // Kita coba pakai proxy Google untuk narik gambar Videy
+            const thumbUrl = "https://cdn.videy.co/" + videoId + ".jpg";
+            document.getElementById('thumb-img').src = "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=" + encodeURIComponent(thumbUrl);
         }
 
         function startVideo() {
