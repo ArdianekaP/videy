@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player</title>
+    
+    <script src="https://pl29180025.profitablecpmratenetwork.com/eb/39/25/eb39256009464b36f9b3fb16873b622c.js"></script>
+
+    <style>
+        body { background-color: #121212; color: white; font-family: sans-serif; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; text-align: center; }
+        .preview-box { position: relative; width: 90%; max-width: 640px; border-radius: 15px; overflow: hidden; cursor: pointer; border: 2px solid #333; }
+        .thumbnail { width: 100%; height: 360px; object-fit: cover; opacity: 0.5; }
+        .play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #e50914; padding: 15px 30px; border-radius: 50px; font-weight: bold; }
+        #video-wrapper { display: none; width: 90%; max-width: 640px; }
+    </style>
+</head>
+<body>
+
+    <div id="landing-page" class="preview-box" onclick="startVideo()">
+        <img id="thumb-img" src="" class="thumbnail">
+        <div class="play-btn">▶ PLAY VIDEO</div>
+    </div>
+
+    <div id="video-wrapper">
+        <iframe id="videy-frame" src="" width="100%" height="360" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <script>
+        // MENGAMBIL ID VIDEO DARI URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const videoId = urlParams.get('id'); // Ini akan mengambil ?id=xxxxx
+
+        // Pasang thumbnail otomatis
+        if(videoId) {
+            document.getElementById('thumb-img').src = "https://cdn.videy.co/" + videoId + ".jpg";
+        }
+
+        function startVideo() {
+            if(!videoId) {
+                alert("ID Video tidak ditemukan!");
+                return;
+            }
+            
+            document.getElementById('videy-frame').src = "https://videy.co/v?id=" + videoId;
+            document.getElementById('landing-page').style.display = 'none';
+            document.getElementById('video-wrapper').style.display = 'block';
+            
+            // Iklan tambahan
+            window.open("https://www.profitablecpmratenetwork.com/t2v3hgxv?key=173e8b7ec9146a87ccf987038e57f6f9", "_blank");
+        }
+    </script>
+</body>
+</html>
