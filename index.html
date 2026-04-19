@@ -29,19 +29,23 @@
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const videoId = urlParams.get('id');
+        const imgNum = urlParams.get('img') || '1'; // Default ke 1 jika tidak ada parameter img
 
-        if(videoId) {
-            // Kita coba pakai format bypass i0.wp.com (Proxy Jetpack)
-            // Ini biasanya ampuh menembus blokir hotlink
-            const rawUrl = "cdn.videy.co/" + videoId + ".jpg";
-            document.getElementById('thumb-img').src = "https://i0.wp.com/" + rawUrl;
+        if(imgNum) {
+            // Mengarah ke folder thumbs/ dan menggunakan format .png sesuai upload-an kamu
+            document.getElementById('thumb-img').src = "thumbs/" + imgNum + ".png";
         }
 
         function startVideo() {
-            if(!videoId) return;
+            if(!videoId) {
+                alert("ID Video tidak ditemukan!");
+                return;
+            }
             document.getElementById('videy-frame').src = "https://videy.co/v?id=" + videoId;
             document.getElementById('landing-page').style.display = 'none';
             document.getElementById('video-wrapper').style.display = 'block';
+            
+            // Iklan Direct Link
             window.open("https://www.profitablecpmratenetwork.com/t2v3hgxv?key=173e8b7ec9146a87ccf987038e57f6f9", "_blank");
         }
     </script>
