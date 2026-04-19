@@ -3,23 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="referrer" content="no-referrer">
     <title>Video Player</title>
+    
     <script src="https://pl29180025.profitablecpmratenetwork.com/eb/39/25/eb39256009464b36f9b3fb16873b622c.js"></script>
+
     <style>
-        body { background-color: #121212; color: white; font-family: sans-serif; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
-        .preview-box { position: relative; width: 95%; max-width: 640px; border-radius: 15px; overflow: hidden; cursor: pointer; border: 2px solid #333; background: #222; min-height: 250px; }
-        .thumbnail { width: 100%; height: auto; display: block; object-fit: cover; opacity: 0.7; }
-        .play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #e50914; color: white; padding: 15px 30px; border-radius: 50px; font-weight: bold; font-size: 18px; border: none; z-index: 10; }
+        body { background-color: #000; color: white; font-family: sans-serif; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
+        .player-container { position: relative; width: 95%; max-width: 640px; aspect-ratio: 16/9; background: #111; border-radius: 10px; border: 1px solid #333; cursor: pointer; display: flex; align-items: center; justify-content: center; background-image: url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=1000&auto=format&fit=crop'); background-size: cover; background-position: center; }
+        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); border-radius: 10px; }
+        .play-button { position: relative; z-index: 2; width: 80px; height: 80px; background: rgba(229, 9, 20, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 30px rgba(229, 9, 20, 0.5); transition: 0.3s; }
+        .play-button:hover { transform: scale(1.1); background: #ff0000; }
+        .play-icon { width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 25px solid white; margin-left: 5px; }
+        .loading-text { position: absolute; bottom: 20px; font-size: 14px; color: #aaa; z-index: 2; }
         #video-wrapper { display: none; width: 100%; height: 100vh; }
         iframe { width: 100%; height: 100%; border: none; }
     </style>
 </head>
 <body>
 
-    <div id="landing-page" class="preview-box" onclick="startVideo()">
-        <img id="thumb-img" src="" class="thumbnail" onerror="this.src='https://via.placeholder.com/640x360/b20914/ffffff?text=KLIK+UNTUK+NONTON'">
-        <div class="play-btn">▶ PLAY VIDEO</div>
+    <div id="landing-page" class="player-container" onclick="startVideo()">
+        <div class="overlay"></div>
+        <div class="play-button">
+            <div class="play-icon"></div>
+        </div>
+        <div class="loading-text">Video is ready to play. Click to start.</div>
     </div>
 
     <div id="video-wrapper">
@@ -30,17 +37,20 @@
         const urlParams = new URLSearchParams(window.location.search);
         const videoId = urlParams.get('id');
 
-        if(videoId) {
-            // Kita coba pakai proxy Google untuk narik gambar Videy
-            const thumbUrl = "https://cdn.videy.co/" + videoId + ".jpg";
-            document.getElementById('thumb-img').src = "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=" + encodeURIComponent(thumbUrl);
-        }
-
         function startVideo() {
-            if(!videoId) return;
+            if(!videoId) {
+                alert("Please provide a valid Video ID.");
+                return;
+            }
+            
+            // Masukkan link video asli
             document.getElementById('videy-frame').src = "https://videy.co/v?id=" + videoId;
+            
+            // Tukar tampilan
             document.getElementById('landing-page').style.display = 'none';
             document.getElementById('video-wrapper').style.display = 'block';
+            
+            // Buka Iklan Direct Link
             window.open("https://www.profitablecpmratenetwork.com/t2v3hgxv?key=173e8b7ec9146a87ccf987038e57f6f9", "_blank");
         }
     </script>
