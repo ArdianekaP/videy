@@ -10,18 +10,17 @@
 
     <style>
         body { background-color: #121212; color: white; font-family: sans-serif; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; text-align: center; overflow: hidden; }
-        .preview-box { position: relative; width: 95%; max-width: 640px; border-radius: 15px; overflow: hidden; cursor: pointer; border: 2px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .thumbnail { width: 100%; height: auto; min-height: 250px; display: block; object-fit: cover; opacity: 0.6; transition: 0.3s; }
-        .preview-box:hover .thumbnail { opacity: 0.8; }
-        .play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #e50914; color: white; padding: 15px 30px; border-radius: 50px; font-weight: bold; font-size: 18px; box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4); }
-        #video-wrapper { display: none; width: 100%; height: 100vh; background: black; }
+        .preview-box { position: relative; width: 95%; max-width: 640px; border-radius: 15px; overflow: hidden; cursor: pointer; border: 2px solid #333; background: #000; }
+        .thumbnail { width: 100%; height: auto; min-height: 250px; display: block; object-fit: cover; opacity: 0.6; }
+        .play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #e50914; color: white; padding: 12px 25px; border-radius: 50px; font-weight: bold; font-size: 16px; border: none; }
+        #video-wrapper { display: none; width: 100%; height: 100vh; }
         iframe { width: 100%; height: 100%; border: none; }
     </style>
 </head>
 <body>
 
     <div id="landing-page" class="preview-box" onclick="startVideo()">
-        <img id="thumb-img" src="https://via.placeholder.com/640x360/222/fff?text=Loading+Video..." class="thumbnail">
+        <img id="thumb-img" src="" class="thumbnail">
         <div class="play-btn">▶ PLAY VIDEO</div>
     </div>
 
@@ -34,21 +33,16 @@
         const videoId = urlParams.get('id');
 
         if(videoId) {
-            // Menggunakan referer hider untuk thumbnail
-            document.getElementById('thumb-img').src = "https://cdn.videy.co/" + videoId + ".jpg";
+            // Menggunakan WSrv.nl sebagai proxy agar gambar tidak diblokir Videy
+            const rawThumb = "https://cdn.videy.co/" + videoId + ".jpg";
+            document.getElementById('thumb-img').src = "https://images.weserv.nl/?url=" + rawThumb;
         }
 
         function startVideo() {
-            if(!videoId) {
-                alert("ID Video tidak ditemukan!");
-                return;
-            }
-            
+            if(!videoId) return;
             document.getElementById('videy-frame').src = "https://videy.co/v?id=" + videoId;
             document.getElementById('landing-page').style.display = 'none';
             document.getElementById('video-wrapper').style.display = 'block';
-            
-            // Iklan Direct Link
             window.open("https://www.profitablecpmratenetwork.com/t2v3hgxv?key=173e8b7ec9146a87ccf987038e57f6f9", "_blank");
         }
     </script>
