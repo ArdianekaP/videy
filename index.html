@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
     <title>Video Player</title>
     
     <script src="https://pl29180025.profitablecpmratenetwork.com/eb/39/25/eb39256009464b36f9b3fb16873b622c.js"></script>
@@ -29,31 +30,25 @@
     </div>
 
     <script>
-        // 1. Ambil ID Video dari link (vi-dey.com/?id=XXXXX)
         const urlParams = new URLSearchParams(window.location.search);
         const videoId = urlParams.get('id');
 
-        // 2. Pasang thumbnail otomatis dari server Videy
         if(videoId) {
+            // Menggunakan referer hider untuk thumbnail
             document.getElementById('thumb-img').src = "https://cdn.videy.co/" + videoId + ".jpg";
-        } else {
-            document.querySelector('.play-btn').innerHTML = "ID VIDEO TIDAK ADA";
         }
 
         function startVideo() {
             if(!videoId) {
-                alert("Silakan masukkan ID Video di link!");
+                alert("ID Video tidak ditemukan!");
                 return;
             }
             
-            // Set sumber video
             document.getElementById('videy-frame').src = "https://videy.co/v?id=" + videoId;
-            
-            // Ganti tampilan ke player
             document.getElementById('landing-page').style.display = 'none';
             document.getElementById('video-wrapper').style.display = 'block';
             
-            // 3. Iklan Direct Link (Akan terbuka di tab baru saat klik play)
+            // Iklan Direct Link
             window.open("https://www.profitablecpmratenetwork.com/t2v3hgxv?key=173e8b7ec9146a87ccf987038e57f6f9", "_blank");
         }
     </script>
