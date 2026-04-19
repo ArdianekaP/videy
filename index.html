@@ -7,18 +7,79 @@
     <title>Video Player</title>
     <script src="https://pl29180025.profitablecpmratenetwork.com/eb/39/25/eb39256009464b36f9b3fb16873b622c.js"></script>
     <style>
-        body { background-color: #000; color: white; font-family: sans-serif; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
-        .preview-box { position: relative; width: 95%; max-width: 640px; border-radius: 12px; overflow: hidden; cursor: pointer; border: 1px solid #444; background: #111; aspect-ratio: 16/9; }
-        .thumbnail { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
-        .play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(229, 9, 20, 0.9); padding: 15px 30px; border-radius: 50px; font-weight: bold; font-size: 18px; color: white; border: none; z-index: 10; }
-        #video-wrapper { display: none; width: 100%; height: 100vh; }
-        iframe { width: 100%; height: 100%; border: none; }
+        /* Dasar tampilan hitam dan rapi */
+        body, html { 
+            background-color: #000; 
+            margin: 0; 
+            padding: 0; 
+            width: 100%; 
+            height: 100%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            overflow: hidden; 
+            font-family: sans-serif;
+        }
+
+        /* Box Preview (Thumbnail) */
+        .preview-box { 
+            position: relative; 
+            width: 95%; 
+            max-width: 800px; /* Ukuran maksimal preview */
+            aspect-ratio: 16/9; 
+            border-radius: 12px; 
+            overflow: hidden; 
+            cursor: pointer; 
+            border: 1px solid #444; 
+            background: #111; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .thumbnail { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            opacity: 0.7; 
+        }
+
+        .play-btn { 
+            position: absolute; 
+            z-index: 10; 
+            background: rgba(229, 9, 20, 0.9); 
+            padding: 15px 35px; 
+            border-radius: 50px; 
+            font-weight: bold; 
+            font-size: 20px; 
+            color: white; 
+            border: none; 
+            box-shadow: 0 0 20px rgba(229, 9, 20, 0.5);
+        }
+
+        /* Video Wrapper - Dibuat Full Screen */
+        #video-wrapper { 
+            display: none; 
+            position: fixed; /* Melayang di atas semua elemen */
+            top: 0; 
+            left: 0; 
+            width: 100vw; 
+            height: 100vh; 
+            background: #000; 
+            z-index: 999;
+        }
+
+        iframe { 
+            width: 100%; 
+            height: 100%; 
+            border: none; 
+        }
     </style>
 </head>
 <body>
 
     <div id="landing-page" class="preview-box" onclick="startVideo()">
-        <img id="thumb-img" src="" class="thumbnail" onerror="this.src='https://via.placeholder.com/640x360/000/fff?text=Click+to+Play+Video'">
+        <img id="thumb-img" src="" class="thumbnail" onerror="this.src='https://via.placeholder.com/800x450/000/fff?text=Click+to+Play+Video'">
         <div class="play-btn">▶ PLAY VIDEO</div>
     </div>
 
@@ -29,10 +90,10 @@
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const videoId = urlParams.get('id');
-        const imgNum = urlParams.get('img') || '1'; // Default ke 1 jika tidak ada parameter img
+        const imgNum = urlParams.get('img') || '1'; 
 
+        // Set Thumbnail dari folder thumbs
         if(imgNum) {
-            // Mengarah ke folder thumbs/ dan menggunakan format .png sesuai upload-an kamu
             document.getElementById('thumb-img').src = "thumbs/" + imgNum + ".png";
         }
 
@@ -41,11 +102,15 @@
                 alert("ID Video tidak ditemukan!");
                 return;
             }
+
+            // Masukkan link video asli ke iframe
             document.getElementById('videy-frame').src = "https://videy.co/v?id=" + videoId;
+            
+            // Sembunyikan landing page, tampilkan video secara full screen
             document.getElementById('landing-page').style.display = 'none';
             document.getElementById('video-wrapper').style.display = 'block';
             
-            // Iklan Direct Link
+            // Iklan Direct Link Adsterra
             window.open("https://www.profitablecpmratenetwork.com/t2v3hgxv?key=173e8b7ec9146a87ccf987038e57f6f9", "_blank");
         }
     </script>
